@@ -1,0 +1,140 @@
+#include<stdio.h>
+#include<stdlib.h>
+void create();
+void display();
+void addbegin();
+void addend();
+void addlocation();
+struct node
+{
+	int data;
+	struct node *next;
+};
+struct node *start=NULL,*current,*newnode,*temp,*previous;
+int main()
+{
+	int ch;
+
+	do
+	{
+	printf("\nEnter your choice:");
+	printf("1.Create,2.Display,3.insert at begin,4.insert at end,5.insert at location,6.exitt\n");
+	scanf("%d",&ch);
+	switch(ch)
+	{
+		case 1:create();
+		break;
+		case 2:display();
+		break;
+		case 3:addbegin();
+		break;
+		case 4:addend();
+		break;
+		case 5:addlocation();
+		break;
+		case 6:exit(0);
+		break;
+	}
+	}while(ch!=6);
+return 0;
+}
+void create()
+{
+	int ch;
+	do
+	{
+		newnode=(struct node *)malloc(sizeof(struct node));
+		printf("Enter Your Data:\n");
+		scanf("%d",&newnode->data);
+		newnode->next=NULL;
+		if(start==NULL)
+		{
+		start=newnode;
+		current=newnode;
+		}
+		else
+		{
+		current->next=newnode;
+		current=newnode;
+		}
+		printf("if you want to continue\nDo not press 0(Zero)\n");
+		scanf("%d",&ch);
+	}while(ch!=0);
+}
+void display()
+{
+	if(start==NULL)
+		printf("The list is empty\n");
+	else
+	{
+		temp=start;
+		printf("the elements are\n");
+		while(temp!=NULL)
+		{
+			printf("%d\t",temp->data);
+			temp=temp->next;
+		}
+	}
+}
+void addbegin()
+{
+	newnode=(struct node *)malloc(sizeof(struct node));
+	printf("Enter Your Data;\n");
+	scanf("%d",&newnode->data);
+	if(start==NULL)
+	{
+		start=newnode;
+		newnode->next=NULL;
+	}
+	else
+	{
+		newnode->next=start;
+		start=newnode;
+	}
+}
+void addend()
+{
+	newnode=(struct node *)malloc(sizeof(struct node));
+	printf("Enter Your data\n");
+	scanf("%d",&newnode->data);
+	if(start==NULL)
+	{
+		start=newnode;
+		newnode->next=NULL;
+	}
+	else
+	{
+		temp=start;
+		while(temp->next!=NULL)
+		{
+			temp=temp->next;
+		}
+		temp->next=newnode;
+		newnode->next=NULL;
+	}
+}
+void addlocation()
+{
+	int loc,i;
+	printf("Enter Location\n");
+	scanf("%d",&loc);
+	newnode=(struct node *)malloc(sizeof(struct node));
+	printf("Enter your Data\n");
+	scanf("%d",&newnode->data);
+	if(start==NULL)
+	{
+		start=newnode;
+		newnode->next=NULL;
+	}
+	else
+	{
+		current=start;
+		for(i=1;i<loc;i++)
+		{
+			previous=current;
+			current=current->next;
+		}
+		previous->next=newnode;
+		newnode->next=current;
+	}
+}
